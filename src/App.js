@@ -1,19 +1,11 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+
+import SumMoneyInput from './components/SumMoneyInput.js';
+import MoneySplitSelector from './components/MoneySplitSelector.js';
+import SplitGrid from './components/SplitGrid.js';
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
   mainContainer: {
     margin: 'auto',
     height: '60vh',
@@ -27,21 +19,55 @@ const useStyles = makeStyles((theme) => ({
     borderColor: '#042c34',
     borderStyle: 'solid',
   },
+  containerLeft: {
+    fontSize: 15,
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    // alignItems: 'center',
+    fontFamily: 'Roboto',
+    width: '20vw',
+    padding: 50,
+    borderRadius: 50,
+    borderWidth: 6,
+    borderColor: '#042c34',
+    borderStyle: 'solid',
+  },
+  containerRight: {
+    fontSize: 15,
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    fontFamily: 'Roboto',
+    width: '80vw',
+    padding: 50,
+    borderRadius: 50,
+    borderWidth: 6,
+    borderColor: '#042c34',
+    borderStyle: 'solid',
+  },
 }));
 
 const App = () => {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const inputSumRef = useRef();
+  const inputSplitRef = useRef();
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  //   console.log('ref1', inputSumRef.current.value);
+
+  //   console.log('ref2', inputSplitRef.current.value);
 
   return (
-    <div class={classes.mainContainer}>
-      <div></div>
-      {'setup'}
-      <div></div>
+    <div className={classes.mainContainer}>
+      <div className={classes.containerLeft}>
+        <SumMoneyInput inputSumRef={inputSumRef} />
+        <MoneySplitSelector inputSplitRef={inputSplitRef} />
+      </div>
+
+      <div className={classes.containerRight}>
+        <SplitGrid />
+      </div>
     </div>
   );
 };

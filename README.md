@@ -1,6 +1,6 @@
 # Getting Started
 
-- Run \$ npm i - install packages
-- Run \$ npm start - will load and open [http://localhost:3000](http://localhost:3000)
+- Run \$ yarn install - install packages
+- Run \$ yarn start - will load and open [http://localhost:3000](http://localhost:3000)
 
 ###
