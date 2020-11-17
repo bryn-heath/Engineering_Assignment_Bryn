@@ -98,17 +98,6 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
     lastDayAmount -= perEvenDayAmount * 4;
     lastDayAmount = lastDayAmount.toFixed(2);
 
-    // const BuildMoreOddGrid = setOddDays.map((ea) => (
-    //   <>
-    //     <Grid item xs={1}>
-    //       <Paper className={classes.paper}>$ {perOddDayAmount}</Paper>
-    //     </Grid>
-    //     <Grid item xs={1}>
-    //       <Paper className={classes.paper}>$ {perEvenDayAmount}</Paper>
-    //     </Grid>
-    //   </>
-    // ));
-
     const BuildMoreOddGrid = [];
     for (let i = 0; i < 10; i++) {
       if (i === 0) {
