@@ -5,6 +5,8 @@ import MoneyAmountInput from './components/MoneyAmountInput.js';
 import MoneySplitSelector from './components/MoneySplitSelector.js';
 import SplitGrid from './components/SplitGrid.js';
 
+const borderMobCheck = window.screen.width < 450 ? 'none' : 'solid';
+
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
     margin: 'auto',
@@ -17,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 50,
     borderWidth: 6,
     borderColor: '#042c34',
-    borderStyle: 'solid',
+    borderStyle: borderMobCheck,
   },
   containerLeft: {
     fontSize: 15,

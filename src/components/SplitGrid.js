@@ -130,15 +130,77 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid container item xs={'auto'} spacing={5}>
-          <FormRowHeader />
-        </Grid>
-        <Grid container item xs={'auto'} spacing={5}>
-          {selectedSplit === 'Equal' ? <FormRowEqual /> : null}
-        </Grid>
-        <Grid container item xs={'auto'} spacing={5}>
-          {selectedSplit === 'More-odd' ? <FormRowMoreOdd /> : null}
-        </Grid>
+        {window.screen.width < 450 ? (
+          <div style={{ flexDirection: 'row' }}>
+            <Grid
+              container
+              item
+              xs={'auto'}
+              spacing={window.screen.width < 450 ? 1 : 5}
+              direction={window.screen.width < 450 ? 'column' : 'row'}
+            >
+              <FormRowHeader />
+            </Grid>
+          </div>
+        ) : (
+          <Grid
+            container
+            item
+            xs={'auto'}
+            spacing={window.screen.width < 450 ? 1 : 5}
+            direction={window.screen.width < 450 ? 'column' : 'row'}
+          >
+            <FormRowHeader />
+          </Grid>
+        )}
+
+        {window.screen.width < 450 ? (
+          <div style={{ flexDirection: 'row' }}>
+            <Grid
+              container
+              item
+              xs={'auto'}
+              spacing={window.screen.width < 450 ? 1 : 5}
+              direction={window.screen.width < 450 ? 'column' : 'row'}
+            >
+              {selectedSplit === 'Equal' ? <FormRowEqual /> : null}
+            </Grid>
+          </div>
+        ) : (
+          <Grid
+            container
+            item
+            xs={'auto'}
+            spacing={window.screen.width < 450 ? 1 : 5}
+            direction={window.screen.width < 450 ? 'column' : 'row'}
+          >
+            {selectedSplit === 'Equal' ? <FormRowEqual /> : null}
+          </Grid>
+        )}
+
+        {window.screen.width < 450 ? (
+          <div style={{ flexDirection: 'row' }}>
+            <Grid
+              container
+              item
+              xs={'auto'}
+              spacing={window.screen.width < 450 ? 1 : 5}
+              direction={window.screen.width < 450 ? 'column' : 'row'}
+            >
+              {selectedSplit === 'More-odd' ? <FormRowMoreOdd /> : null}
+            </Grid>
+          </div>
+        ) : (
+          <Grid
+            container
+            item
+            xs={'auto'}
+            spacing={window.screen.width < 450 ? 1 : 5}
+            direction={window.screen.width < 450 ? 'column' : 'row'}
+          >
+            {selectedSplit === 'More-odd' ? <FormRowMoreOdd /> : null}
+          </Grid>
+        )}
       </Grid>
       <div className={classes.infoText}>
         {selectedSplit === 'Equal'

@@ -5,9 +5,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 
+const widthMobCheck = window.screen.width < 450 ? 100 : '80%';
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '80%',
+    width: widthMobCheck,
     display: 'flex',
     flexWrap: 'wrap',
     '& label.Mui-focused': {
