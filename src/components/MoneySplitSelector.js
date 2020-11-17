@@ -9,8 +9,7 @@ import Select from '@material-ui/core/Select';
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
-
+    minWidth: '70%',
     '& .MuiInput-underline:after': {
       borderBottomColor: '#042c34',
     },
@@ -20,21 +19,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MoneySplitSelector = ({ inputSplitRef }) => {
+const MoneySplitSelector = ({ selectedSplit, setSelectedSplit }) => {
   const classes = useStyles();
-  const [selected, setSelected] = React.useState('');
 
   //   const handleChange = (event) => {
   //     setAge(event.target.value);
   //   };
-  console.log('selected', selected);
+
   return (
     <div>
       <FormControl className={classes.formControl}>
         <Select
-          inputRef={inputSplitRef}
-          value={selected}
-          onChange={(e) => setSelected(e.target.value)}
+          value={selectedSplit}
+          onChange={(e) => setSelectedSplit(e.target.value)}
           displayEmpty
           className={classes.selectEmpty}
           inputProps={{ 'aria-label': 'Without label' }}

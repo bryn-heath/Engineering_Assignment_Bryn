@@ -15,6 +15,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    width: '80%',
     display: 'flex',
     flexWrap: 'wrap',
     '& label.Mui-focused': {
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SumMoneyInput = ({ inputSumRef }) => {
+const MoneyAmountInput = ({ setAmount, inputAmountRef }) => {
   const classes = useStyles();
 
   return (
@@ -54,9 +55,9 @@ const SumMoneyInput = ({ inputSumRef }) => {
           Amount
         </InputLabel>
         <Input
-          color="red"
+          onChange={(e) => setAmount(e.target.value)}
           className={classes.fontStyle}
-          inputRef={inputSumRef}
+          inputRef={inputAmountRef}
           id="standard-adornment-amount"
           startAdornment={<InputAdornment position="start">$</InputAdornment>}
         />
@@ -64,4 +65,4 @@ const SumMoneyInput = ({ inputSumRef }) => {
     </div>
   );
 };
-export default SumMoneyInput;
+export default MoneyAmountInput;
