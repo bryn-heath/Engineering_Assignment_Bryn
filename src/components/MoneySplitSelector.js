@@ -16,15 +16,14 @@ const useStyles = makeStyles((theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+    fontSize: 16,
+    fontWeight: 600,
+    letterSpacing: 1.1,
   },
 }));
 
 const MoneySplitSelector = ({ selectedSplit, setSelectedSplit }) => {
   const classes = useStyles();
-
-  //   const handleChange = (event) => {
-  //     setAge(event.target.value);
-  //   };
 
   return (
     <div>

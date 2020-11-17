@@ -5,14 +5,24 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // flexGrow: 1,
-    // width: '15%',
+    fontFamily: 'arial',
+    flexGrow: 1,
+    // width: '80vw',
   },
   paper: {
-    width: '100px',
-    padding: 2,
+    // height: '100%',
+    width: 55,
+    padding: 8,
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
+    // whiteSpace: 'wrap',
+  },
+  infoText: {
+    paddingTop: 45,
+    fontSize: 16,
+    fontFamily: 'arial',
+    // textAlign: 'center',
+    // width: '100%',
   },
 }));
 
@@ -20,6 +30,7 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
   const classes = useStyles();
   const setTenDays = Array.from({ length: 10 }, (_, i) => i + 1);
   const setNineDays = Array.from({ length: 9 }, (_, i) => i + 1);
+  const setOddDays = Array.from({ length: 5 }, (_, i) => i + 1);
 
   function FormRowHeader() {
     const BuildDayGrid = setTenDays.map((ea) => (
@@ -32,26 +43,30 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
   }
 
   function FormRowEqual() {
-    let calculatedAmount;
-    let firstFig;
-    let decimalFig;
-
+    let perDayAmount;
+    let lastDayAmount;
     const dailyAmount = selectedAmount / 10;
-    console.log('dailyyyy', dailyAmount);
-
     if (Number.isInteger(dailyAmount)) {
       //check whole number
+      perDayAmount = dailyAmount;
+      lastDayAmount = dailyAmount;
+    } else {
+      // per day calc
+      const truncateDecimals = (number, digits) => {
+        var multiplier = Math.pow(10, digits),
+          adjustedNum = number * multiplier,
+          truncatedNum = Math[adjustedNum < 0 ? 'ceil' : 'floor'](adjustedNum);
 
-      calculatedAmount = dailyAmount;
-      console.log('hitss true CARRY ON HERE TRUE OR FALSE', calculatedAmount);
-    } else if (dailyAmount == 1000) {
-      firstFig = dailyAmount.split('.')[0];
-      decimalFig = dailyAmount.split('.')[1].substring(0, 2);
+        return truncatedNum / multiplier;
+      };
+      perDayAmount = truncateDecimals(dailyAmount, 2);
+      // last day calc
+      lastDayAmount = selectedAmount - 9 * perDayAmount;
+      lastDayAmount = lastDayAmount.toFixed(2);
     }
-    let lastDayAmount = selectedAmount - 9 * calculatedAmount;
     const BuildEqualGrid = setNineDays.map((ea) => (
       <Grid item xs={1}>
-        <Paper className={classes.paper}>$ {calculatedAmount}</Paper>
+        <Paper className={classes.paper}>$ {perDayAmount}</Paper>
       </Grid>
     ));
 
@@ -65,23 +80,73 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
     );
   } // Returns Days 1-9 + Final Day
 
-  function FormRowSplit() {
-    return <>{'ok'}</>;
+  function FormRowMoreOdd() {
+    let perOddDayAmount;
+    let perEvenDayAmount;
+    let lastDayAmount = selectedAmount;
+    const dailyAmount = selectedAmount / 10;
+
+    const truncateDecimal = (number, digits) => {
+      var multiplier = Math.pow(10, digits),
+        adjustedNum = number * multiplier,
+        truncatedNum = Math[adjustedNum < 0 ? 'ceil' : 'floor'](adjustedNum);
+
+      return truncatedNum / multiplier;
+    };
+
+    //check whole number
+    perOddDayAmount = dailyAmount / 0.75;
+    perOddDayAmount = truncateDecimal(perOddDayAmount, 2);
+
+    perEvenDayAmount = perOddDayAmount / 2;
+    perEvenDayAmount = truncateDecimal(perEvenDayAmount, 2);
+
+    lastDayAmount -= perOddDayAmount * 5;
+    lastDayAmount -= perEvenDayAmount * 4;
+    lastDayAmount = lastDayAmount.toFixed(2);
+
+    const BuildMoreOddGrid = setOddDays.map((ea) => (
+      <>
+        <Grid item xs={1}>
+          <Paper className={classes.paper}>$ {perOddDayAmount}</Paper>
+        </Grid>
+        <Grid item xs={1}>
+          <Paper className={classes.paper}>$ {perEvenDayAmount}</Paper>
+        </Grid>
+      </>
+    ));
+
+    return (
+      <>
+        {BuildMoreOddGrid}
+        <Grid item xs={1}>
+          <Paper className={classes.paper}>$ {lastDayAmount}</Paper>
+        </Grid>
+      </>
+    );
   }
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid container item xs={'auto'} spacing={3}>
+        <Grid container item xs={'auto'} spacing={5}>
           <FormRowHeader />
         </Grid>
-        <Grid container item xs={'auto'} spacing={3}>
+        <Grid container item xs={'auto'} spacing={5}>
           {selectedSplit === 'Equal' ? <FormRowEqual /> : null}
         </Grid>
-        <Grid container item xs={'auto'} spacing={3}>
-          {selectedSplit === 'More-odd' ? <FormRowSplit /> : null}
+        <Grid container item xs={'auto'} spacing={5}>
+          {selectedSplit === 'More-odd' ? <FormRowMoreOdd /> : null}
         </Grid>
       </Grid>
+      <div className={classes.infoText}>
+        {selectedSplit === 'Equal'
+          ? 'Info: the same amount to be donated every day'
+          : null}
+        {selectedSplit === 'More-odd'
+          ? 'Info: double the amount to be donated on odd-numbered days'
+          : null}
+      </div>
       {/* {selectedAmount} */}
     </div>
   );

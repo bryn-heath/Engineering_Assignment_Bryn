@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   mainContainer: {
     margin: 'auto',
     height: '60vh',
-    width: '60vw',
+    width: '80vw',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     // borderStyle: 'solid',
   },
   containerRight: {
-    transform: `translate(${0}, ${-50}%)`,
+    transform: `translate(${0}, ${-10}%)`,
     fontSize: 15,
     display: 'flex',
     justifyContent: 'center',

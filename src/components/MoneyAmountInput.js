@@ -1,17 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
-import FilledInput from '@material-ui/core/FilledInput';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiInput-underline:after': {
       borderBottomColor: 'yellow',
     },
+    fontWeight: 'bold',
   },
   margin: {
     margin: theme.spacing(1),
@@ -36,8 +30,9 @@ const useStyles = makeStyles((theme) => ({
     fontColor: '#042c34',
   },
   fontStyle: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: 600,
+    letterSpacing: 1.1,
     fontColor: '#042c34',
   },
 }));
