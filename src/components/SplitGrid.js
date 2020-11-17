@@ -7,22 +7,17 @@ const useStyles = makeStyles((theme) => ({
   root: {
     fontFamily: 'arial',
     flexGrow: 1,
-    // width: '80vw',
   },
   paper: {
-    // height: '100%',
     width: 55,
     padding: 8,
     textAlign: 'center',
     color: theme.palette.text.primary,
-    // whiteSpace: 'wrap',
   },
   infoText: {
     paddingTop: 45,
     fontSize: 16,
     fontFamily: 'arial',
-    // textAlign: 'center',
-    // width: '100%',
   },
 }));
 
@@ -30,11 +25,10 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
   const classes = useStyles();
   const setTenDays = Array.from({ length: 10 }, (_, i) => i + 1);
   const setNineDays = Array.from({ length: 9 }, (_, i) => i + 1);
-  const setOddDays = Array.from({ length: 5 }, (_, i) => i + 1);
 
   function FormRowHeader() {
     const BuildDayGrid = setTenDays.map((ea) => (
-      <Grid item xs={1}>
+      <Grid key={ea} item xs={1}>
         <Paper className={classes.paper}>Day {ea}</Paper>
       </Grid>
     ));
@@ -47,7 +41,7 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
     let lastDayAmount;
     const dailyAmount = selectedAmount / 10;
     if (Number.isInteger(dailyAmount)) {
-      //check whole number
+      // check whole number
       perDayAmount = dailyAmount;
       lastDayAmount = dailyAmount;
     } else {
@@ -64,8 +58,8 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
       lastDayAmount = selectedAmount - 9 * perDayAmount;
       lastDayAmount = lastDayAmount.toFixed(2);
     }
-    const BuildEqualGrid = setNineDays.map((ea) => (
-      <Grid item xs={1}>
+    const BuildEqualGrid = setNineDays.map((ea, i) => (
+      <Grid key={ea} item xs={1}>
         <Paper className={classes.paper}>$ {perDayAmount}</Paper>
       </Grid>
     ));
@@ -78,7 +72,7 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
         </Grid>
       </>
     );
-  } // Returns Days 1-9 + Final Day
+  }
 
   function FormRowMoreOdd() {
     let perOddDayAmount;
@@ -94,7 +88,6 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
       return truncatedNum / multiplier;
     };
 
-    //check whole number
     perOddDayAmount = dailyAmount / 0.75;
     perOddDayAmount = truncateDecimal(perOddDayAmount, 2);
 
@@ -105,16 +98,35 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
     lastDayAmount -= perEvenDayAmount * 4;
     lastDayAmount = lastDayAmount.toFixed(2);
 
-    const BuildMoreOddGrid = setOddDays.map((ea) => (
-      <>
-        <Grid item xs={1}>
-          <Paper className={classes.paper}>$ {perOddDayAmount}</Paper>
-        </Grid>
-        <Grid item xs={1}>
-          <Paper className={classes.paper}>$ {perEvenDayAmount}</Paper>
-        </Grid>
-      </>
-    ));
+    // const BuildMoreOddGrid = setOddDays.map((ea) => (
+    //   <>
+    //     <Grid item xs={1}>
+    //       <Paper className={classes.paper}>$ {perOddDayAmount}</Paper>
+    //     </Grid>
+    //     <Grid item xs={1}>
+    //       <Paper className={classes.paper}>$ {perEvenDayAmount}</Paper>
+    //     </Grid>
+    //   </>
+    // ));
+
+    const BuildMoreOddGrid = [];
+    for (let i = 0; i < 10; i++) {
+      if (i === 0) {
+        //returns nothing because of day 0
+      } else if (i % 2 === 0) {
+        BuildMoreOddGrid.push(
+          <Grid item xs={1}>
+            <Paper className={classes.paper}>$ {perEvenDayAmount}</Paper>
+          </Grid>
+        );
+      } else {
+        BuildMoreOddGrid.push(
+          <Grid key={i} item xs={1}>
+            <Paper className={classes.paper}>$ {perOddDayAmount}</Paper>
+          </Grid>
+        );
+      }
+    }
 
     return (
       <>
@@ -147,7 +159,6 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
           ? 'Info: double the amount to be donated on odd-numbered days'
           : null}
       </div>
-      {/* {selectedAmount} */}
     </div>
   );
 };

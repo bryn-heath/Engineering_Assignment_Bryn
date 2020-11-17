@@ -24,14 +24,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    // alignItems: 'center',
     fontFamily: 'Roboto',
     width: '20vw',
     padding: 25,
-    // borderRadius: 50,
-    // borderWidth: 6,
-    // borderColor: '#042c34',
-    // borderStyle: 'solid',
   },
   containerRight: {
     transform: `translate(${0}, ${-10}%)`,
@@ -43,10 +38,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Roboto',
     width: '80vw',
     padding: 25,
-    // borderRadius: 50,
-    // borderWidth: 6,
-    // borderColor: '#042c34',
-    // borderStyle: 'solid',
   },
 }));
 
@@ -55,7 +46,6 @@ const App = () => {
   const [selectedAmount, setAmount] = useState('');
   const classes = useStyles();
 
-  console.log(selectedAmount);
   return (
     <div className={classes.mainContainer}>
       <div className={classes.containerLeft}>
