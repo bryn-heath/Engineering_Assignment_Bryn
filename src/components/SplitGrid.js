@@ -54,6 +54,10 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
         return truncatedNum / multiplier;
       };
       perDayAmount = truncateDecimals(dailyAmount, 2);
+
+      if (perDayAmount.toString().split('.')[1].length === 1) {
+        perDayAmount = perDayAmount + '0';
+      }
       // last day calc
       lastDayAmount = selectedAmount - 9 * perDayAmount;
       lastDayAmount = lastDayAmount.toFixed(2);
@@ -97,6 +101,9 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
     lastDayAmount -= perOddDayAmount * 5;
     lastDayAmount -= perEvenDayAmount * 4;
     lastDayAmount = lastDayAmount.toFixed(2);
+    if (lastDayAmount.split('.')[1] === '00') {
+      lastDayAmount = lastDayAmount.split('.')[0];
+    }
 
     const BuildMoreOddGrid = [];
     for (let i = 0; i < 10; i++) {
