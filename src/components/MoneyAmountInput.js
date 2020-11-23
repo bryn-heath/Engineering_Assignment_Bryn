@@ -41,6 +41,14 @@ const useStyles = makeStyles((theme) => ({
 const MoneyAmountInput = ({ setAmount, inputAmountRef }) => {
   const classes = useStyles();
 
+  const onHandleChangeNumeric = (e) => {
+    if (!Number(e.target.value) && e.target.value > 0) {
+      console.log('erroe');
+      return;
+    }
+    return setAmount(e.target.value);
+  };
+
   return (
     <div className={classes.root}>
       <FormControl fullWidth className={classes.margin}>
@@ -50,8 +58,11 @@ const MoneyAmountInput = ({ setAmount, inputAmountRef }) => {
         >
           Amount
         </InputLabel>
+
         <Input
-          onChange={(e) => setAmount(e.target.value)}
+          inputProps={{ min: 0, max: 99999, step: 0.01 }}
+          type="number"
+          onChange={(e) => onHandleChangeNumeric(e)}
           className={classes.fontStyle}
           inputRef={inputAmountRef}
           id="standard-adornment-amount"
