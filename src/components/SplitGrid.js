@@ -26,6 +26,12 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
   const setTenDays = Array.from({ length: 10 }, (_, i) => i + 1);
   const setNineDays = Array.from({ length: 9 }, (_, i) => i + 1);
 
+  const formatter = new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+    minimumFractionDigits: 2,
+  });
+
   function FormRowHeader() {
     const BuildDayGrid = setTenDays.map((ea) => (
       <Grid key={ea} item xs={1}>
@@ -55,16 +61,19 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
       };
       perDayAmount = truncateDecimals(dailyAmount, 2);
 
-      if (perDayAmount.toString().split('.')[1].length === 1) {
-        perDayAmount = perDayAmount + '0';
-      }
+      // if (perDayAmount.toString().split('.')[1].length === 1) {
+      //   perDayAmount = perDayAmount + '0';
+      // }
       // last day calc
       lastDayAmount = selectedAmount - 9 * perDayAmount;
       lastDayAmount = lastDayAmount.toFixed(2);
+      lastDayAmount = formatter.format(lastDayAmount);
+      perDayAmount = formatter.format(perDayAmount);
     }
+
     const BuildEqualGrid = setNineDays.map((ea, i) => (
       <Grid key={ea} item xs={1}>
-        <Paper className={classes.paper}>$ {perDayAmount}</Paper>
+        <Paper className={classes.paper}>{perDayAmount}</Paper>
       </Grid>
     ));
 
@@ -72,7 +81,7 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
       <>
         {BuildEqualGrid}
         <Grid item xs={1}>
-          <Paper className={classes.paper}>$ {lastDayAmount}</Paper>
+          <Paper className={classes.paper}>{lastDayAmount}</Paper>
         </Grid>
       </>
     );
@@ -101,9 +110,10 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
     lastDayAmount -= perOddDayAmount * 5;
     lastDayAmount -= perEvenDayAmount * 4;
     lastDayAmount = lastDayAmount.toFixed(2);
-    if (lastDayAmount.split('.')[1] === '00') {
-      lastDayAmount = lastDayAmount.split('.')[0];
-    }
+
+    lastDayAmount = formatter.format(lastDayAmount);
+    perOddDayAmount = formatter.format(perOddDayAmount);
+    perEvenDayAmount = formatter.format(perEvenDayAmount);
 
     const BuildMoreOddGrid = [];
     for (let i = 0; i < 10; i++) {
@@ -112,13 +122,13 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
       } else if (i % 2 === 0) {
         BuildMoreOddGrid.push(
           <Grid item xs={1}>
-            <Paper className={classes.paper}>$ {perEvenDayAmount}</Paper>
+            <Paper className={classes.paper}>{perEvenDayAmount}</Paper>
           </Grid>
         );
       } else {
         BuildMoreOddGrid.push(
           <Grid key={i} item xs={1}>
-            <Paper className={classes.paper}>$ {perOddDayAmount}</Paper>
+            <Paper className={classes.paper}>{perOddDayAmount}</Paper>
           </Grid>
         );
       }
@@ -128,7 +138,7 @@ const SplitGrid = ({ selectedSplit, selectedAmount }) => {
       <>
         {BuildMoreOddGrid}
         <Grid item xs={1}>
-          <Paper className={classes.paper}>$ {lastDayAmount}</Paper>
+          <Paper className={classes.paper}>{lastDayAmount}</Paper>
         </Grid>
       </>
     );

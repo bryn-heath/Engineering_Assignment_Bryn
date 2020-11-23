@@ -47,7 +47,7 @@ const MoneyAmountInput = ({ setAmount, inputAmountRef }) => {
       return;
     }
     return setAmount(e.target.value);
-  };
+  }; //checks if the input is a solid number value 0-9999
 
   return (
     <div className={classes.root}>
